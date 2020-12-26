@@ -3,8 +3,10 @@ import { useHistory } from "react-router-dom";
 import { authService, dbService } from "../fbase";
 
 const Profile = ({ userObj, refreshUser }) => {
+  const history = useHistory();
   const onLogOutClick = () => {
     authService.signOut();
+    history.push("/");
   };
   const getMyNweets = async () => {
     const nweets = await dbService
@@ -16,7 +18,6 @@ const Profile = ({ userObj, refreshUser }) => {
     getMyNweets();
   }, []);
 
-  const history = useHistory();
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 
   const onChange = (event) => {
